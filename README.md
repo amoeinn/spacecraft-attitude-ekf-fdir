@@ -122,7 +122,5 @@ Recovery Mode
 
 ```bash
 python main.py
-
-### 2. Run Monte Carlo analysis
-
+2. Run Monte Carlo analysis
 python monte_carlo.py
