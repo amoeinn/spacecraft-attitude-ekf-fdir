@@ -101,19 +101,18 @@ Recovery Mode
 
 ## Repository Structure
 
-.
-├── main.py # Simulation loop and integration
-├── monte_carlo.py # Monte Carlo analysis
-├── config.py # Simulation parameters
-├── dynamics.py # Spacecraft rotational dynamics
-├── sensors.py # Sensor models (gyro, star tracker)
-├── ekf.py # Error-state EKF
-├── fdir.py # Fault detection and recovery logic
-├── plots.py # Plotting utilities
-├── utils.py # Quaternion math and helpers
-├── results/ # Saved plots
-└── docs/
-└── architecture.md # System design notes
+- **main.py** — simulation loop and integration  
+- **monte_carlo.py** — Monte Carlo analysis  
+- **config.py** — simulation parameters  
+- **dynamics.py** — spacecraft rotational dynamics  
+- **sensors.py** — sensor models  
+- **ekf.py** — error-state EKF  
+- **fdir.py** — fault detection and recovery  
+- **plots.py** — plotting utilities  
+- **utils.py** — quaternion math  
+- **results/** — saved plots  
+- **docs/** — documentation  
+- **architecture.md** — system design notes  
 
 ---
 
