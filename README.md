@@ -75,6 +75,9 @@ Recovery Mode
 ### Gyro Measurements and Bias
 ![Angular Rates](results/angular_rates.png)
 
+### Monte Carlo Final Error Distribution
+![Monte Carlo Histogram](results/monte_carlo_histogram.png)
+
 ---
 
 ## Typical Performance
