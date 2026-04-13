@@ -4,6 +4,15 @@ A Python-based project for spacecraft attitude estimation using quaternion dynam
 
 ---
 
+## Key Results
+
+- Attitude estimation error: ~0.05–0.2 deg (nominal)
+- Fault detection delay: ~0.5–1.2 s
+- Stable recovery after gyro bias fault
+- Robust performance validated via Monte Carlo simulation
+
+---
+
 ## Overview
 
 This project simulates spacecraft rotational dynamics and estimates vehicle attitude using an error-state EKF. The estimator fuses:
@@ -90,6 +99,10 @@ Recovery Mode
 - Detection delay: ~0.5–1.2 seconds  
 - Recovery stabilizes estimator  
 - Final error bounded ~0.2–0.4 degrees  
+
+### Monte Carlo Validation
+- Repeated simulations confirm bounded estimation error under stochastic sensor noise
+- Final error distribution remains stable across multiple runs
 
 ---
 
