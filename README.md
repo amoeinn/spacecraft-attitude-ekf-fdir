@@ -118,10 +118,9 @@ Recovery Mode
 
 ## How to Run
 
-### 1. Run the main simulation
-
 ```bash
+# Run the main simulation (EKF + fault injection + plots)
 python main.py
 
-### 2. Run Monte Carlo analysis
+# Run Monte Carlo analysis (multiple runs + statistics + histogram)
 python monte_carlo.py
