@@ -1,91 +1,126 @@
 # Spacecraft Attitude Estimation with Error-State EKF and FDIR
 
-A Python project for spacecraft attitude estimation using quaternion dynamics, IMU and star tracker sensor fusion, an error-state Extended Kalman Filter, Monte Carlo validation, and basic fault detection, isolation, and recovery logic.
+A Python-based project for spacecraft attitude estimation using quaternion dynamics, IMU and star tracker sensor fusion, an error-state Extended Kalman Filter (EKF), Monte Carlo validation, and fault detection, isolation, and recovery (FDIR).
+
+---
 
 ## Overview
 
-This project simulates a spacecraft rotational dynamics problem and estimates vehicle attitude using an error-state EKF. The estimator fuses:
-- gyroscope measurements with noise, bias, and random walk
-- star tracker attitude measurements
+This project simulates spacecraft rotational dynamics and estimates vehicle attitude using an error-state EKF. The estimator fuses:
 
-The project also includes:
-- Monte Carlo robustness analysis
-- injected gyro fault scenarios
-- bias-based fault detection
-- detection gating to avoid startup false positives
-- adaptive recovery mode after fault detection
+- Gyroscope measurements with noise, bias, and random walk  
+- Star tracker attitude measurements  
+
+The system also includes:
+
+- Monte Carlo robustness analysis  
+- Injected gyro fault scenarios  
+- Bias-based fault detection  
+- Startup detection gating (prevents false alarms)  
+- Adaptive recovery after fault detection  
+
+---
 
 ## Features
 
 ### Estimation
-- Quaternion-based spacecraft attitude propagation
-- Error-state EKF for attitude and gyro bias estimation
-- IMU plus star tracker sensor fusion
+- Quaternion-based attitude propagation  
+- Error-state EKF for attitude and gyro bias estimation  
+- Sensor fusion (IMU + star tracker)  
 
 ### Validation
-- Time-domain estimation error analysis
-- Monte Carlo final-error distribution
+- Time-domain attitude error analysis  
+- Monte Carlo simulation for robustness  
 
-### FDIR
-- Gyro bias fault injection
-- Residual monitoring
-- Bias-based fault detection
-- Startup transient guard window
-- Recovery mode with covariance inflation
-- Adaptive bias update during recovery
+### FDIR (Fault Detection, Isolation, Recovery)
+- Gyro bias fault injection  
+- Residual monitoring  
+- Bias-based fault detection  
+- Startup transient guard  
+- Detection delay measurement  
+- Recovery mode with covariance inflation  
+- Adaptive bias estimation during recovery  
+
+---
+
+## Example Results
+
+### Attitude Estimation Error
+![Attitude Error](results/attitude_error.png)
+
+### Bias-Based Fault Detection
+![Bias Detection](results/bias_detection.png)
+
+### Recovery Mode Activation
+![Recovery](results/recovery_mode.png)
+
+### Gyro Measurements and Bias
+![Angular Rates](results/angular_rates.png)
+
+---
+
+## System Workflow
+
+Truth Dynamics
+↓
+Sensor Models (Gyro + Star Tracker)
+↓
+EKF Prediction
+↓
+EKF Update
+↓
+Fault Detection (FDIR)
+↓
+Recovery Mode
+
+---
+
+## Key Concepts
+
+- Error-State Kalman Filter  
+- Quaternion Attitude Representation  
+- Sensor Fusion  
+- Gyro Bias Estimation  
+- Monte Carlo Analysis  
+- Fault Detection and Recovery  
+
+---
+
+## Typical Performance
+
+### Nominal Case
+- Attitude error: ~0.05 to 0.2 degrees  
+
+### Faulted Case (Gyro Bias Jump)
+- Error spike during fault  
+- Detection delay: ~0.5–1.2 seconds  
+- Recovery stabilizes estimator  
+- Final error bounded ~0.2–0.4 degrees  
+
+---
 
 ## Repository Structure
 
-- `main.py`  
-  Main simulation loop, fault injection, detection timing, and plotting
+.
+├── main.py # Simulation loop and integration
+├── monte_carlo.py # Monte Carlo analysis
+├── config.py # Simulation parameters
+├── dynamics.py # Spacecraft rotational dynamics
+├── sensors.py # Sensor models (gyro, star tracker)
+├── ekf.py # Error-state EKF
+├── fdir.py # Fault detection and recovery logic
+├── plots.py # Plotting utilities
+├── utils.py # Quaternion math and helpers
+├── results/ # Saved plots
+└── docs/
+└── architecture.md # System design notes
 
-- `monte_carlo.py`  
-  Repeated simulation runs for robustness analysis
-
-- `config.py`  
-  Simulation constants and initial conditions
-
-- `dynamics.py`  
-  Spacecraft rotational dynamics propagation
-
-- `sensors.py`  
-  Gyro and star tracker sensor models
-
-- `ekf.py`  
-  Error-state attitude EKF
-
-- `fdir.py`  
-  Fault detection and recovery logic
-
-- `plots.py`  
-  Plotting utilities
-
-- `utils.py`  
-  Quaternion math and helper functions
-
-## Example Workflow
-
-1. Propagate truth attitude dynamics
-2. Generate noisy gyro and star tracker measurements
-3. Run EKF prediction and update
-4. Inject a gyro bias fault at a chosen time
-5. Detect the fault using bias monitoring
-6. Trigger recovery mode
-7. Evaluate estimation performance
-
-## Typical Results
-
-### Nominal case
-- attitude estimation error typically remains around 0.1 to 0.2 deg
-
-### Faulted case
-- a gyro bias jump causes a transient attitude error spike
-- bias-based detection triggers after a short delay
-- recovery mode stabilizes the estimator
-- attitude error settles back to a bounded level
+---
 
 ## How to Run
 
-### Main simulation
+### 1. Run the main simulation
+
 ```bash
 python main.py
+python monte_carlo.py
