@@ -61,16 +61,17 @@ The system also includes:
 
 ## System Workflow
 
+```text
 Truth Dynamics
-↓
+    ↓
 Sensor Models (Gyro + Star Tracker)
-↓
+    ↓
 EKF Prediction
-↓
+    ↓
 EKF Update
-↓
+    ↓
 Fault Detection (FDIR)
-↓
+    ↓
 Recovery Mode
 
 ---
