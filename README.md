@@ -21,6 +21,24 @@ The system also includes:
 
 ---
 
+## System Workflow
+
+```text
+Truth Dynamics
+    ↓
+Sensor Models (Gyro + Star Tracker)
+    ↓
+EKF Prediction
+    ↓
+EKF Update
+    ↓
+Fault Detection (FDIR)
+    ↓
+Recovery Mode
+```
+
+---
+
 ## Features
 
 ### Estimation
@@ -59,34 +77,6 @@ The system also includes:
 
 ---
 
-## System Workflow
-
-```text
-Truth Dynamics
-    ↓
-Sensor Models (Gyro + Star Tracker)
-    ↓
-EKF Prediction
-    ↓
-EKF Update
-    ↓
-Fault Detection (FDIR)
-    ↓
-Recovery Mode
-
----
-
-## Key Concepts
-
-- Error-State Kalman Filter  
-- Quaternion Attitude Representation  
-- Sensor Fusion  
-- Gyro Bias Estimation  
-- Monte Carlo Analysis  
-- Fault Detection and Recovery  
-
----
-
 ## Typical Performance
 
 ### Nominal Case
@@ -102,26 +92,69 @@ Recovery Mode
 
 ## Repository Structure
 
-- **main.py** — simulation loop and integration  
-- **monte_carlo.py** — Monte Carlo analysis  
-- **config.py** — simulation parameters  
-- **dynamics.py** — spacecraft rotational dynamics  
-- **sensors.py** — sensor models  
-- **ekf.py** — error-state EKF  
-- **fdir.py** — fault detection and recovery  
-- **plots.py** — plotting utilities  
-- **utils.py** — quaternion math  
-- **results/** — saved plots  
-- **docs/** — documentation  
-- **architecture.md** — system design notes  
+```text
+.
+├── main.py              # Simulation loop and integration
+├── monte_carlo.py       # Monte Carlo analysis
+├── config.py            # Simulation parameters
+├── dynamics.py          # Spacecraft rotational dynamics
+├── sensors.py           # Sensor models (gyro, star tracker)
+├── ekf.py               # Error-state EKF
+├── fdir.py              # Fault detection and recovery logic
+├── plots.py             # Plotting utilities
+├── utils.py             # Quaternion math and helpers
+├── results/             # Saved plots
+└── docs/
+    └── architecture.md  # System design notes
+```
 
 ---
 
 ## How to Run
 
 ```bash
+# Install dependencies
+pip install -r requirements.txt
+
 # Run the main simulation (EKF + fault injection + plots)
 python main.py
 
 # Run Monte Carlo analysis (multiple runs + statistics + histogram)
 python monte_carlo.py
+```
+
+The main simulation runs the full spacecraft attitude estimation pipeline, including EKF propagation, fault injection, detection, recovery, and generates plots saved in the `results/` folder.
+
+The Monte Carlo script executes multiple simulation runs to evaluate robustness, producing a histogram of final attitude error and reporting statistical metrics such as mean and standard deviation.
+
+---
+
+## Architecture Notes
+
+See `docs/architecture.md` for details on:
+
+- EKF state formulation  
+- Bias estimation strategy  
+- Fault detection logic  
+- Recovery design decisions  
+
+---
+
+## Key Insight
+
+Gyro faults affect the **prediction model**, not directly the measurement.
+
+Therefore:
+- Residual-based detection may not trigger  
+- Bias estimation provides a more reliable fault indicator  
+
+---
+
+## Future Improvements
+
+- Full 6-DOF translational + rotational dynamics  
+- GPS-based navigation integration  
+- NEES/NIS consistency testing  
+- Multi-sensor fault isolation  
+- Unscented Kalman Filter (UKF) implementation  
+- Fault Monte Carlo (detection rate, delay statistics)   
